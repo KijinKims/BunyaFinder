@@ -1,0 +1,6 @@
+name: bunyafinder
+dependencies:
+  - python>=3.7
+  - pip
+  - nextflow
+  
