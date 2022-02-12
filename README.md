@@ -5,7 +5,7 @@
 Requirement: Docker, conda(or miniconda)
 
 ```bash
-git clone https://github.com/KijinKims/bunyafinder.git
+git clone https://github.com/KijinKims/BunyaFinder.git
 cd BunyaFinder
 conda env create -f environment.yml
 conda activate bunyafinder
