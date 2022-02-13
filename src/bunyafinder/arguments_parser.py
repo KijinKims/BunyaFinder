@@ -129,6 +129,9 @@ class Parser:
 
         post_assembly_input_parser = argparse.ArgumentParser(add_help=False, argument_default=argparse.SUPPRESS)
         post_assembly_input_parser.add_argument('-x', nargs='*', type=lambda x: parser_path_check(post_assembly_input_parser, valid_fasta, x))
+
+        general_input_parser = argparse.ArgumentParser(add_help=False, argument_default=argparse.SUPPRESS)
+        general_input_parser.add_argument('-x', nargs='*', type=lambda x: parser_path_check(general_input_parser, valid_file, x))
         
         qc_parser = subparsers.add_parser('qc', parents=[shared_parser, platform_parser, input_parser], argument_default=argparse.SUPPRESS)
 
@@ -143,7 +146,7 @@ class Parser:
         filter_host_parser = filter_subparsers.add_parser('host', parents=[shared_parser, platform_parser, input_parser], argument_default=argparse.SUPPRESS)
         filter_host_parser.add_argument('--host_genome', nargs='*', type=lambda x: parser_path_check(filter_host_parser, valid_fasta, x))
 
-        filter_map_parser = filter_subparsers.add_parser('map', parents=[shared_parser, post_assembly_input_parser], argument_default=argparse.SUPPRESS)
+        filter_map_parser = filter_subparsers.add_parser('map', parents=[shared_parser, general_input_parser], argument_default=argparse.SUPPRESS)
         filter_map_parser.add_argument('--min_map_out_avg_cov', '-cov', nargs='?', type=float)
 
         filter_contigs_parser = filter_subparsers.add_parser('contigs', parents=[shared_parser, post_assembly_input_parser], argument_default=argparse.SUPPRESS)
