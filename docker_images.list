@@ -16,6 +16,8 @@ staphb/samtools:latest
 nanozoo/minimap2:2.22--b178b67
 skkujin/bamcov:latest
 stjudecloud/qualimap:1.0.3
+#filter map
+skkujin/dplyr:latest
 #taxonomic classification
 staphb/kraken2:latest
 skkujin/krakentools:v1.2

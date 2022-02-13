@@ -102,7 +102,7 @@ process flye {
     input:
         path fastx
     output:
-        path "${params.prefix}/${params.prefix}.contigs.fasta"
+        path "${params.prefix}/assembly.fasta"
     script:
     if (params.flye_meta)
         """

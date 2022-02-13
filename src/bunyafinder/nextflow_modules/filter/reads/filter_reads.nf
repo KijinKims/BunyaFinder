@@ -89,7 +89,7 @@ process filter_illumina {
 process trim_illumina {
     tag "${params.prefix}:trim_illumina"
 
-    publishDir path: { params.saveFiltered ? "$params.outdir/filter_reads" : null }, mode: 'copy' 
+    publishDir path: { params.saveFiltered ? "$params.outdir/filter" : null }, mode: 'copy' 
 
     input:
         tuple path(pe1), path(pe2)
