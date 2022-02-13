@@ -124,9 +124,8 @@ class Parser:
         platform_parser.add_argument('--platform', nargs='?', choices=['illumina', 'nanopore'], required=True)
 
         input_parser = argparse.ArgumentParser(add_help=False, argument_default=argparse.SUPPRESS)
-        input_parser.add_argument('-x', nargs='*', type=lambda x: parser_path_check(input_parser, valid_fastx, x))
+        input_parser.add_argument('-x', nargs='*', type=lambda x: parser_path_check(input_parser, valid_file, x))
         input_parser.add_argument('-x2', nargs='*', type=lambda x: parser_path_check(input_parser, valid_fastq, x))
-        input_parser.add_argument('-y', nargs='*', type=lambda x: parser_path_check(input_parser, valid_fasta, x))
 
         post_assembly_input_parser = argparse.ArgumentParser(add_help=False, argument_default=argparse.SUPPRESS)
         post_assembly_input_parser.add_argument('-x', nargs='*', type=lambda x: parser_path_check(post_assembly_input_parser, valid_fasta, x))
@@ -163,7 +162,7 @@ class Parser:
         tax_classify_parser.add_argument('--kraken2_db', nargs='?', type=lambda x: parser_path_check(tax_classify_parser, valid_dir, x))
 
         assembly_parser = subparsers.add_parser('assembly', parents=[shared_parser, platform_parser, input_parser], argument_default=argparse.SUPPRESS)
-        assembly_parser.add_argument('--tool', '-t', nargs='*', choices=['spades', 'megahit', 'canu', 'unicycler'], required=True)
+        assembly_parser.add_argument('--tool', '-t', nargs='*', choices=['spades', 'megahit', 'canu', 'flye'], required=True)
 
         polish_parser = subparsers.add_parser('polish', parents=[shared_parser, post_assembly_input_parser], argument_default=argparse.SUPPRESS)
         polish_parser.add_argument('--tool', '-t', nargs='*', choices=['racon', 'medaka'], default=['racon', 'medaka'])

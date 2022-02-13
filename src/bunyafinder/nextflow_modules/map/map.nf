@@ -53,13 +53,13 @@ workflow map_refs_parse {
         refs
     
     main:
-        if (params.ref  != null) {
+        if (params.ref) {
             Channel.fromPath(params.ref.tokenize()).set{refs}
         } else {
             Channel.empty().set{refs}
         }
 
-        if (params.file_ref != null) {
+        if (params.file_ref) {
             Channel.fromPath(params.file_ref)
                     .splitText()
                     .map { it -> it.trim() }
@@ -68,8 +68,8 @@ workflow map_refs_parse {
             refs.concat(file_ref_ch).set{refs}
         }
 
-        if (params.dir_ref != null) {
-            Channel.fromPath("${params.dir_ref}/*fa*")
+        if (params.dir_ref) {
+            Channel.fromPath(["${params.dir_ref}/*.fa", "${params.dir_ref}/*.fasta"])
                     .set { dir_ref_ch }
             refs.concat(dir_ref_ch).set{refs}
         }
@@ -80,7 +80,7 @@ workflow map_refs_parse {
 process map_pair {
     tag "${params.prefix}:map_pair"
 
-    publishDir "${params.outdir}/map", mode: 'copy'
+    publishDir { params.saveBam ? "$params.outdir/map" : null }, mode: 'copy'
 
     input:
         tuple path(ref), path(pe1), path(pe2)
@@ -94,7 +94,7 @@ process map_pair {
 process map_single {
     tag "${params.prefix}:map_single"
 
-    publishDir "${params.outdir}/map", mode: 'copy'
+    publishDir { params.saveBam ? "$params.outdir/map" : null }, mode: 'copy'
 
     input:
         tuple path(ref), path(single)
