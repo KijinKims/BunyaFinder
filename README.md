@@ -75,3 +75,8 @@ BunyaFinder end_to_end --platform nanopore -x SRR13439799_Sequecing_of_PR8_H1N1_
 ```bash
 BunyaFinder consensus --platform nanopore -x SRR13439799_Sequecing_of_PR8_H1N1_culture_medium_1.fastq --prefix SRR13439799 --ref KJ942813_influenza_A.fasta
 ```
+
+```bash
+cat sequences.fasta | awk '/^>/ {fout=sprintf("%s.fasta",substr($0,2,11));}{print >> fout;}'
+```
+

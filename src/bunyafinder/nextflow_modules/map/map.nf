@@ -67,6 +67,12 @@ workflow map_refs_parse {
                     .set { file_ref_ch }
             refs.concat(file_ref_ch).set{refs}
         }
+
+        if (params.dir_ref != null) {
+            Channel.fromPath("${params.dir_ref}/*fa*")
+                    .set { dir_ref_ch }
+            refs.concat(dir_ref_ch).set{refs}
+        }
     
     refs.ifEmpty{ println "WARN: No reference genome is given. Reference mapping will not happen."}
 }

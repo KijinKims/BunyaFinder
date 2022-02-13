@@ -156,6 +156,7 @@ class Parser:
         map_parser = subparsers.add_parser('map', parents=[shared_parser, platform_parser, input_parser], argument_default=argparse.SUPPRESS)
         map_parser.add_argument('--ref', nargs='*', type=lambda x: parser_path_check(map_parser, valid_fasta, x))
         map_parser.add_argument('--file_ref', '-fr', nargs='?', type=lambda x: parser_path_check(map_parser, valid_fasta_list, x))
+        map_parser.add_argument('--dir_ref', '-dr', nargs='?', type=lambda x: parser_path_check(map_parser, valid_dir, x))
 
         tax_classify_parser = subparsers.add_parser('tax_classify', parents=[shared_parser, platform_parser, input_parser], argument_default=argparse.SUPPRESS)
         tax_classify_parser.add_argument('--tool', '-t', nargs='*', choices=['kraken2'], default=['kraken2'])
