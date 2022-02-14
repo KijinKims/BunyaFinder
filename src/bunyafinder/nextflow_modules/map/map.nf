@@ -80,7 +80,9 @@ workflow map_refs_parse {
 process map_pair {
     tag "${params.prefix}:map_pair"
 
-    publishDir path: { params.saveBam ? "$params.outdir/map" : null }, mode: 'copy'
+    if(params.saveBam){
+        publishDir path: "$params.outdir/map", mode: 'copy'
+    }
 
     input:
         tuple path(ref), path(pe1), path(pe2)
@@ -94,7 +96,9 @@ process map_pair {
 process map_single {
     tag "${params.prefix}:map_single"
 
-    publishDir path: { params.saveBam ? "$params.outdir/map" : null }, mode: 'copy'
+    if(params.saveBam){
+        publishDir path: "$params.outdir/map", mode: 'copy'
+    }
 
     input:
         tuple path(ref), path(single)

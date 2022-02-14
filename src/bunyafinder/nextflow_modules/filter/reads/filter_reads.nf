@@ -89,8 +89,9 @@ process filter_illumina {
 process trim_illumina {
     tag "${params.prefix}:trim_illumina"
 
-    publishDir path: { params.saveFiltered ? "$params.outdir/filter" : null }, mode: 'copy' 
-
+    if(params.saveFiltered){
+        publishDir path: "$params.outdir/filter", mode: 'copy'
+    }
     input:
         tuple path(pe1), path(pe2)
     output:
@@ -103,7 +104,9 @@ process trim_illumina {
 process filter_nanopore {
     tag "${params.prefix}:filter_nanopore"
 
-    publishDir path: { params.saveFiltered ? "$params.outdir/filter" : null }, mode: 'copy'
+    if(params.saveFiltered){
+        publishDir path: "$params.outdir/filter", mode: 'copy'
+    }
 
     input:
         path single
