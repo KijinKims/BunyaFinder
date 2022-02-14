@@ -190,7 +190,7 @@ class Parser:
         report_parser = subparsers.add_parser('report')
         report_subparsers = report_parser.add_subparsers(dest='subtask', title='subtasks', description='valid subtasks', required=True)
 
-        report_blast_parser = report_subparsers.add_parser('blast', parents=[shared_parser, post_assembly_input_parser], argument_default=argparse.SUPPRESS)
+        report_blast_parser = report_subparsers.add_parser('blast', parents=[shared_parser, general_input_parser], argument_default=argparse.SUPPRESS)
         report_blast_parser.add_argument('--taxonomizr_db', nargs='?', type=lambda x: parser_path_check(report_blast_parser, valid_file, x))
 
         end_to_end_parser = subparsers.add_parser('end_to_end', parents=[shared_parser, platform_parser, input_parser], argument_default=argparse.SUPPRESS)
