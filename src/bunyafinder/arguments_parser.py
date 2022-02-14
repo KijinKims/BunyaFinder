@@ -152,7 +152,7 @@ class Parser:
         filter_contigs_parser = filter_subparsers.add_parser('contigs', parents=[shared_parser, post_assembly_input_parser], argument_default=argparse.SUPPRESS)
         filter_contigs_parser.add_argument('--min_contig_length', '-l', nargs='?', type=float)
         
-        filter_blast_parser = filter_subparsers.add_parser('blast', parents=[shared_parser, post_assembly_input_parser], argument_default=argparse.SUPPRESS)
+        filter_blast_parser = filter_subparsers.add_parser('blast', parents=[shared_parser, general_input_parser], argument_default=argparse.SUPPRESS)
         filter_blast_parser.add_argument('--min_blast_aln_len', nargs='?', type=float)
 
         map_parser = subparsers.add_parser('map', parents=[shared_parser, platform_parser, input_parser], argument_default=argparse.SUPPRESS)
