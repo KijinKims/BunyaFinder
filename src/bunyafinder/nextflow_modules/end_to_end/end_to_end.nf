@@ -9,7 +9,7 @@ include { assembly_illumina; assembly_nanopore } from '../assembly/assembly' add
 include { polish } from '../polish/polish' addParams(tool: 'racon medaka')
 include { filter_contigs } from '../filter/contigs/filter_contigs'
 include { blast } from '../post_assembly/blast/post_assembly_blast' addParams(tool: 'blastn megablast')
-include { filter_blast_nucl } from '../filter/blast/filter_blast'
+include { filter_blast } from '../filter/blast/filter_blast'
 include { match_taxonomy } from '../report/blast/report_blast'
 include { zoonotic_rank } from '../post_assembly/zoonosis/post_assembly_zoonosis' addParams(tool: 'zoonotic_rank')
 
@@ -41,12 +41,12 @@ workflow {
 
         contigs = assembly_illumina(filter_completed)
 
-            } else if (params.platform == 'nanopore') {
+    } else if (params.platform == 'nanopore') {
         
         qc_nanopore(fastx)
         filter_reads_nanopore(fastx)
 
-        if (params.host_genome != null) {
+        if (params.host_genome) {
             Channel.fromPath(params.host_genome).set{host_genome}
             filter_completed = filter_host_nanopore(filter_reads_nanopore.out, host_genome)
         } else {
@@ -63,13 +63,9 @@ workflow {
     
     filter_contigs(contigs)
 
-    blast_outs = blast(filter_contigs.out)
-    blast_nucl = blast_outs[0]
-    blast_prot = blast_outs[1]
-    filter_blast_nucl(blast_nucl)
-    filter_blast_prot(blast_prot)
-    filter_blast_nucl.out.concat(filter_blast_prot.out).set{filter_blast_out}
-    match_taxonomy(filter_blast_out)
+    blast(filter_contigs.out)
+    filter_blast(blast.out)
+    match_taxonomy(filter_blast.out)
 
     zoonotic_rank(filter_contigs.out)
 }
