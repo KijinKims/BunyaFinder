@@ -140,6 +140,6 @@ process krona {
     output:
         path "${params.prefix}_${tool}.html"
     """
-    ktImportText $krona_input -o ${params.prefix}_${tool}.html
+    ktImportText $krona_input -o ${params.prefix}.${tool}.html
     """
 }

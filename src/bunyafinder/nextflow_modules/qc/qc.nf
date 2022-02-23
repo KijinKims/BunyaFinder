@@ -43,7 +43,7 @@ process fastqc {
 
 process multiqc {
     tag "${params.prefix}:multiqc"
-    publishDir "${params.outdir}/qc", mode: 'copy', saveAs: { filename -> "${params.prefix}_qc.html"}
+    publishDir "${params.outdir}/qc", mode: 'copy', saveAs: { filename -> "${params.prefix}.qc.html"}
 
     input:
         path f
@@ -56,7 +56,7 @@ process multiqc {
 
 process nanoplot {
     tag "${params.prefix}:nanoplot"
-    publishDir "${params.outdir}/qc", mode: 'copy', saveAs: { filename -> "${params.prefix}_qc.html"}
+    publishDir "${params.outdir}/qc", mode: 'copy', saveAs: { filename -> "${params.prefix}.qc.html"}
 
     input:
         path f
@@ -77,9 +77,9 @@ process nanoplot {
         fi
 
         if [[ \${real_ext} == "fastq" || \${real_ext} == "fq" ]]; then
-            NanoPlot --fastq $f
+            NanoPlot --fastq $f --minlength ${params.nanopore_min_read_length} --minqual ${params.nanopore_min_read_quality}
         else
-            NanoPlot --fasta $f
+            NanoPlot --fasta $f --minlength ${params.nanopore_min_read_length} --minqual ${params.nanopore_min_read_quality}
         fi
         """
 }

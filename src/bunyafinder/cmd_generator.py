@@ -164,7 +164,7 @@ class AnalysisCmdGenerator(CmdGenerator):
                 else:
                     raise InputError("--prefix and -x have different lengths!")
 
-            if argsloader['task'] in ['polish', 'post_assembly', 'filter'] or argsloader['platform'] == 'nanopore':
+            if argsloader['task'] in ['polish', 'post_assembly'] or argsloader['platform'] == 'nanopore':
                 if argsloader.has('x2'):
                     warnings.warn("Chosen analysis doesn't need -x2. Given argument will be ignored.")
                 if argsloader['task'] == 'polish':
@@ -212,8 +212,12 @@ class AnalysisCmdGenerator(CmdGenerator):
         if argsloader.not_has('outdir'):
             argsloader.add(ListArg('outdir', argsloader['prefix']))
 
-        if argsloader.not_has('host_genome') and argsloader['host_genome'] == 1:
+        if argsloader.not_has('host_genome') or argsloader['host_genome'] == 1:
             argsloader.add(ListArg('host_genome', argsloader['host_genome'] * len(argsloader['prefix'])))
+
+        argsloader.add(ValueArg('running_report'), f"{argsloader['prefix']}/report.html")
+        argsloader.add(ValueArg('running_trace'), f"{argsloader['prefix']}/trace.txt")
+        argsloader.add(ValueArg('running_timeline'), f"{argsloader['prefix']}/timeline.html")
 
         return argsloader
     

@@ -55,7 +55,10 @@ class ValueArg(Arg):
         return self.val    
 
     def nxf_cmd(self):
-        d = {   'nextflow_config' : '-c'
+        d = {   'nextflow_config' : '-c',
+                'running_report' : '-with-report',
+                'running_trace' : '-with-trace',
+                'running_timeline' : '-with-timeline',
         }
 
         if self.name in d.keys():
