@@ -215,9 +215,9 @@ class AnalysisCmdGenerator(CmdGenerator):
         if argsloader['host_genome'] == 1:
             argsloader.add(ListArg('host_genome', argsloader['host_genome'] * len(argsloader['prefix'])))
 
-        argsloader.add(ValueArg('running_report'), f"{argsloader['prefix']}/report.html")
-        argsloader.add(ValueArg('running_trace'), f"{argsloader['prefix']}/trace.txt")
-        argsloader.add(ValueArg('running_timeline'), f"{argsloader['prefix']}/timeline.html")
+        argsloader.add(ValueArg('running_report', f"{argsloader['prefix']}/report.html"))
+        argsloader.add(ValueArg('running_trace', f"{argsloader['prefix']}/trace.txt"))
+        argsloader.add(ValueArg('running_timeline', f"{argsloader['prefix']}/timeline.html"))
 
         return argsloader
     
