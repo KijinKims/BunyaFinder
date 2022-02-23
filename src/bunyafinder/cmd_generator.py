@@ -212,7 +212,7 @@ class AnalysisCmdGenerator(CmdGenerator):
         if argsloader.not_has('outdir'):
             argsloader.add(ListArg('outdir', argsloader['prefix']))
 
-        if argsloader.not_has('host_genome') or argsloader['host_genome'] == 1:
+        if argsloader['host_genome'] == 1:
             argsloader.add(ListArg('host_genome', argsloader['host_genome'] * len(argsloader['prefix'])))
 
         argsloader.add(ValueArg('running_report'), f"{argsloader['prefix']}/report.html")
