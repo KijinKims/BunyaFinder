@@ -34,7 +34,19 @@ class ListArg(Arg):
         self.li.append(value)
 
     def nxf_cmd(self, idx):
-        return f"--{self.name} {self.li[idx]}"
+        d = {   'running_report' : '-with-report',
+                'running_trace' : '-with-trace',
+                'running_timeline' : '-with-timeline',
+        }
+
+        if self.name in d.keys():
+            return f"--{d[self.name]} {self.li[idx]}"
+        else:
+            return f"--{self.name} {self.li[idx]}"
+            
+
+
+        
 
 class FileListArg(ListArg):
     def resolve_relative_path(self):
@@ -56,9 +68,6 @@ class ValueArg(Arg):
 
     def nxf_cmd(self):
         d = {   'nextflow_config' : '-c',
-                'running_report' : '-with-report',
-                'running_trace' : '-with-trace',
-                'running_timeline' : '-with-timeline',
         }
 
         if self.name in d.keys():
