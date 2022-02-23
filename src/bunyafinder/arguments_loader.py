@@ -40,7 +40,7 @@ class ListArg(Arg):
         }
 
         if self.name in d.keys():
-            return f"--{d[self.name]} {self.li[idx]}"
+            return f"{d[self.name]} {self.li[idx]}"
         else:
             return f"--{self.name} {self.li[idx]}"
             
