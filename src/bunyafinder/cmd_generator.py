@@ -190,15 +190,6 @@ class AnalysisCmdGenerator(CmdGenerator):
                     if argsloader.has('y'):
                         warnings.warn("Chosen analysis doesn't need -y. Given argument will be ignored.")
 
-        if argsloader['task'] == 'consensus':
-            if argsloader.has('ref_cds'):
-                self.validify_file_ref_cds(argsloader['ref_cds'])
-                argsloader += self.convert_ref_cds_to_argsloader(argsloader['ref_cds'])
-            ref_num = len(argsloader['ref'])
-            cds_num = len(argsloader['cds'])
-            if ref_num != cds_num:
-                raise InputError("--ref and --cds have different lengths!")
-
         if argsloader.has('outdir'):
             if len(argsloader['outdir']) != prefix_num:
                 raise InputError("--outdir is in an inappropriate length. It can either be in the same length with --prefix or not given.")
