@@ -138,7 +138,7 @@ process krona {
     input:
         tuple path(krona_input), val(tool)
     output:
-        path "${params.prefix}_${tool}.html"
+        path "${params.prefix}.${tool}.html"
     """
     ktImportText $krona_input -o ${params.prefix}.${tool}.html
     """
